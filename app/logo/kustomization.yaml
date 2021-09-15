@@ -1,0 +1,10 @@
+resources:
+  - ./base/logo-cm.yml
+  - ./base/console.yml
+
+patches:
+  - path: console-custom-logo.yml
+
+
+
+

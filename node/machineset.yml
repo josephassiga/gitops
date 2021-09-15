@@ -1,0 +1,82 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  annotations:
+    machine.openshift.io/GPU: '0'
+    machine.openshift.io/memoryMb: '65536'
+    machine.openshift.io/vCPU: '16'
+  name: cluster-3e9a-88lrh-worker-us-east-1a
+  namespace: openshift-machine-api
+  labels:
+    machine.openshift.io/cluster-api-cluster: cluster-3e9a-88lrh
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: cluster-3e9a-88lrh
+      machine.openshift.io/cluster-api-machineset: cluster-3e9a-88lrh-worker-us-east-1a
+  template:
+    metadata:
+      labels:
+        machine.openshift.io/cluster-api-cluster: cluster-3e9a-88lrh
+        machine.openshift.io/cluster-api-machine-role: worker
+        machine.openshift.io/cluster-api-machine-type: worker
+        machine.openshift.io/cluster-api-machineset: cluster-3e9a-88lrh-worker-us-east-1a
+    spec:
+      metadata: {}
+      providerSpec:
+        value:
+          userDataSecret:
+            name: worker-user-data
+          placement:
+            availabilityZone: us-east-1a
+            region: us-east-1
+          credentialsSecret:
+            name: aws-cloud-credentials
+          instanceType: m5.4xlarge
+          metadata:
+            creationTimestamp: null
+          blockDevices:
+            - ebs:
+                encrypted: true
+                iops: 0
+                kmsKey:
+                  arn: ''
+                volumeSize: 120
+                volumeType: gp2
+          securityGroups:
+            - filters:
+                - name: 'tag:Name'
+                  values:
+                    - cluster-3e9a-88lrh-worker-sg
+          kind: AWSMachineProviderConfig
+          tags:
+            - name: kubernetes.io/cluster/cluster-3e9a-88lrh
+              value: owned
+            - name: catalog_item
+              value: Openshift_Workshop_Deployer_-_4.7
+            - name: email
+              value: jassigaa@redhat.com
+            - name: env_type
+              value: ocp4-cluster
+            - name: guid
+              value: 3e9a
+            - name: owner
+              value: jassigaa@redhat.com
+            - name: platform
+              value: Red_Hat_OPENTLC
+            - name: uuid
+              value: ff6d9d5d-ea59-4ea6-9db8-9b8fb3b28560
+            - name: Stack
+              value: project ocp4-cluster-3e9a
+          deviceIndex: 0
+          ami:
+            id: ami-0d5f9982f029fbc14
+          subnet:
+            filters:
+              - name: 'tag:Name'
+                values:
+                  - cluster-3e9a-88lrh-private-us-east-1a
+          apiVersion: awsproviderconfig.openshift.io/v1beta1
+          iamInstanceProfile:
+            id: cluster-3e9a-88lrh-worker-profile

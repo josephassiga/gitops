@@ -1,0 +1,12 @@
+apiVersion: builtin
+kind: LabelTransformer
+metadata:
+  name: machine-set-custom-labels-transformer
+labels:
+  node-role.kubernetes.io/monitoring: ''
+  node-role.kubernetes.io/infra: ''
+fieldSpecs:
+  - path: spec/template/spec/metadata/labels
+    create: true
+  #- path: spec/template/metadata/labels
+  #  create: true

@@ -1,0 +1,12 @@
+apiVersion: console.openshift.io/v1
+kind: ConsoleLink
+metadata:
+  name: kubernetes-menu
+spec:
+  href: 'https://kubernetes.io/'
+  location: ApplicationMenu
+  text: Kubernetes Home
+  applicationMenu:
+    section: Production Grade Container Orchestration
+    # image that is 24x24 in size
+    imageURL: https://kubernetes.io/images/favicon.png

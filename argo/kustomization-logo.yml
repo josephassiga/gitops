@@ -1,0 +1,18 @@
+resources:
+  - ./base/console.yml
+
+namespace: openshift-config
+
+configMapGenerator:
+  - name: custom-logo
+    behavior: create
+    files:
+      - custom-logo.png=./custom-logo.png
+
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+
+patches:
+  - path: console-custom-logo.yml
